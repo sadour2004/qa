@@ -6,7 +6,8 @@ export default function MachinesList({ processId }) {
   const [machines, setMachines] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/machines?processId=${processId}`)
+    const serverIP = window.location.protocol + '//' + window.location.hostname;
+    axios.get(`${serverIP}:5000/api/machines?processId=${processId}`)
       .then(res => setMachines(res.data));
   }, [processId]);
 

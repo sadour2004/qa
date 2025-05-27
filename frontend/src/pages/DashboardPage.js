@@ -9,11 +9,11 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const serverIP = window.location.hostname;
+    const serverIP = window.location.protocol + '//' + window.location.hostname;
     if (!token) {
       window.location.href = '/login';
     } else {
-      axios.get(`http://${serverIP}:5000/api/processes`).then(res => setProcesses(res.data));
+      axios.get(`${serverIP}:5000/api/processes`).then(res => setProcesses(res.data));
     }
   }, []);
 

@@ -13,7 +13,8 @@ export default function MachineCard({ machine }) {
   const handleChange = async (e) => {
     const newStatus = e.target.value;
     setStatus(newStatus);
-    await axios.put(`http://localhost:5000/api/machines/${machine.id}/status`, { status: newStatus });
+    const serverIP = window.location.protocol + '//' + window.location.hostname;
+    await axios.put(`${serverIP}:5000/api/machines/${machine.id}/status`, { status: newStatus });
   };
 
   return (

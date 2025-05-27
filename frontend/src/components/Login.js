@@ -6,16 +6,18 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const serverIP = window.location.hostname;
-    try {
-      const res = await axios.post(`http://${serverIP}:5000/api/auth/login`, { username, password });
-      localStorage.setItem('token', res.data.token);
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError('Identifiants invalides');
-    }
+    const serverIP = window.location.protocol + '//' + window.location.hostname + ':5000';
+    axios.post(`${serverIP}/api/login`, { username, password })
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+        window.location.href = '/dashboard';
+      })
+      .catch(err => {
+        console.error('Login error:', err);
+        setError('Invalid credentials');
+      });
   };
 
   return (
